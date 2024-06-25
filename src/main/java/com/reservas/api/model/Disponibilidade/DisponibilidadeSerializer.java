@@ -1,4 +1,4 @@
-package com.reservas.api.model;
+package com.reservas.api.model.Disponibilidade;
 
 import java.io.IOException;
 

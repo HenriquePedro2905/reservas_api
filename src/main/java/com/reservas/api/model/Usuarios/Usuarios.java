@@ -1,4 +1,4 @@
-package com.reservas.api.model;
+package com.reservas.api.model.Usuarios;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,5 +25,13 @@ public class Usuarios {
 
     private String email;
 
-    private String senha;
+    private String password;
+
+
+    public Usuarios(RequestUsersDTO requestDTO) {
+        this.name = requestDTO.name();
+        this.email = requestDTO.email();
+        this.password = requestDTO.password();
+    }
+
 }
