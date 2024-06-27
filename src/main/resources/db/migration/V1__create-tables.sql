@@ -1,8 +1,9 @@
 CREATE TABLE usuarios (
-  id SERIAL PRIMARY KEY UNIQUE,  -- Corrected: Use PRIMARY KEY instead of pk
+  id SERIAL PRIMARY KEY UNIQUE ,  -- Corrected: Use PRIMARY KEY instead of pk
   nome TEXT,
   email TEXT UNIQUE,             -- Added UNIQUE constraint for email
-  senha TEXT
+  senha TEXT,
+  perfi TEXT DEFAULT 'cliente'
 );
 
 CREATE TABLE servicos (
