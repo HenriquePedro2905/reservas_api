@@ -13,15 +13,16 @@ public class Reservas {
     @GeneratedValue
     private long id;
 
-    @Column(name = "usuarios_id")
+    @Column(name = "users_id")
     private Integer usuariosId;
+
+
+    @Column(name = "services_id")
+    private Integer servicoId;
 
     @Column(name = "data_reserva")
     private LocalDateTime dataReserva; 
 
-    @Column(name = "Status_reserva")
+    @Column(name = "status_reserva")
     private Boolean statusReserva;
-
-    @Column(name = "servico_id")
-    private Integer servicoId;
 }

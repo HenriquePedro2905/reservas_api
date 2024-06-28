@@ -1,8 +1,9 @@
 package com.reservas.api.model.Disponibilidade;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import org.springframework.security.access.event.PublicInvocationEvent;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,20 +15,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "disponibilidade")
+@Table(name = "availability")
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Disponibilidade implements Serializable{
+public class Availability {
 
     @Id
     @GeneratedValue
     private long id;
 
-    @Column(name = "servico_id")
-    private Integer servicoId;
+    @Column(name = "services_id")
+    private Integer serviceId;
     
     private LocalDate data;
 
@@ -37,5 +38,11 @@ public class Disponibilidade implements Serializable{
     @Column(name = "horario_fim")
     private LocalTime horarioFim;
 
-    
+    public Availability(Integer serviceId, LocalDate data, LocalTime horarioInicio, LocalTime horarioFim){
+        this.serviceId = serviceId;
+        this.data = data;
+        this.horarioInicio = horarioInicio;
+        this.horarioFim = horarioFim;
+    }
+
 }

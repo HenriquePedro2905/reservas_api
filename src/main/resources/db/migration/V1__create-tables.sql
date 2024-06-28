@@ -1,29 +1,29 @@
-CREATE TABLE usuarios (
-  id SERIAL PRIMARY KEY UNIQUE ,  -- Corrected: Use PRIMARY KEY instead of pk
-  nome TEXT,
-  email TEXT UNIQUE,             -- Added UNIQUE constraint for email
-  senha TEXT,
-  perfi TEXT DEFAULT 'cliente'
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY UNIQUE , 
+  name TEXT,
+  login TEXT UNIQUE,             
+  password TEXT,
+  role TEXT                       --perfi("admin ou cliente")
 );
 
-CREATE TABLE servicos (
-  id SERIAL PRIMARY KEY UNIQUE, -- Corrected: Use PRIMARY KEY instead of pk
-  nome TEXT,
-  descricao TEXT,
-  disponibilidade JSONB
+CREATE TABLE available_services (   --serviços disponiveis
+  id SERIAL PRIMARY KEY UNIQUE, 
+  name TEXT,
+  description TEXT,
+  availability JSONB              -- disponibilidade
 );
 
 CREATE TABLE reservas (
-  id SERIAL PRIMARY KEY UNIQUE, -- Corrected: Use PRIMARY KEY instead of pk
-  usuario_id INTEGER REFERENCES usuarios(id) ON DELETE CASCADE, -- Foreign key constraint
-  servico_id INTEGER REFERENCES servicos(id) ON DELETE CASCADE,  -- Foreign key constraint
+  id SERIAL PRIMARY KEY UNIQUE, 
+  users_id INTEGER REFERENCES users(id) ON DELETE CASCADE, 
+  services_id INTEGER REFERENCES available_services(id) ON DELETE CASCADE,  
   data_reserva TIMESTAMP,
   status_reserva BOOLEAN
 );
 
-CREATE TABLE disponibilidade (
+CREATE TABLE availability (
   id SERIAL PRIMARY KEY UNIQUE, -- Corrected: Use PRIMARY KEY instead of pk
-  servico_id INTEGER REFERENCES servicos(id) ON DELETE CASCADE,  -- Foreign key constraint
+  services_id INTEGER REFERENCES available_services(id) ON DELETE CASCADE,  -- Foreign key constraint
   data DATE,
   horario_inicio TIME,
   horario_fim TIME

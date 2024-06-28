@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.annotations.Type;
 
-import com.reservas.api.model.Disponibilidade.Disponibilidade;
+import com.reservas.api.model.Disponibilidade.Availability;
 
 import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.Column;
@@ -27,8 +27,8 @@ import lombok.Setter;
 @NoArgsConstructor
 
 // (Name = "jsonb", typeClass = JsonBinaryType.class)
-public class Servicos {
-
+public class Available_services {
+    
     @Id
     @GeneratedValue
     private long id;
@@ -38,10 +38,10 @@ public class Servicos {
     private String description;
 
     @Type(value = JsonBinaryType.class)
-    @Column(columnDefinition = "jsonb")
-    private List<Disponibilidade> dispo;
+    @Column(columnDefinition = "jsonb", name = "availability")
+    private List<Availability> availabilityJson;
 
-    public Servicos(List dispo){
-        this.dispo = dispo;
+    public Available_services(List availabilityJson){
+        this.availabilityJson = availabilityJson;
     }
 }
