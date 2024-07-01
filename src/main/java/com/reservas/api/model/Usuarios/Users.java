@@ -8,6 +8,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,29 +19,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "usuarios")
-@Entity(name = "usuarios")
+@Table(name = "users")
+@Entity(name = "users")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuarios implements UserDetails{
+public class Users implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String nome;
+    private String name;
 
     private String login;
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
 
-    public Usuarios(String name, String login, String password, UserRole role) {
-        this.nome = name;
+    public Users(String name, String login, String password, UserRole role) {
+        this.name = name;
         this.login = login;
         this.password = password;
         this.role = role;

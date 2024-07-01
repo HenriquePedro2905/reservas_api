@@ -16,12 +16,12 @@ import com.reservas.api.model.Usuarios.AuthenticationDTO;
 import com.reservas.api.model.Usuarios.RegisterDTO;
 import com.reservas.api.model.Usuarios.LoginResponseDTO;
 import com.reservas.api.model.Usuarios.UserRepository;
-import com.reservas.api.model.Usuarios.Usuarios;
+import com.reservas.api.model.Usuarios.Users;
 
 import lombok.var;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
 
@@ -40,7 +40,7 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password()) ;
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        var token = tokenService.generateToken((Usuarios) auth.getPrincipal());
+        var token = tokenService.generateToken((Users) auth.getPrincipal());
         // var token = tokenService.generateToken((User) auth.getPrincipal());
 
         return ResponseEntity.ok(new LoginResponseDTO(token));
@@ -51,7 +51,7 @@ public class AuthenticationController {
         if (this.repository.findByLogin(data.login()) != null) return ResponseEntity.ok().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        Usuarios newUSer = new Usuarios(data.name(), data.login(), encryptedPassword, data.role());
+        Users newUSer = new Users(data.name(), data.login(), encryptedPassword, data.role());
         repository.save(newUSer);
         return ResponseEntity.status(201).build();
     }

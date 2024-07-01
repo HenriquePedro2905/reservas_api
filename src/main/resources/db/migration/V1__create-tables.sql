@@ -6,25 +6,16 @@ CREATE TABLE users (
   role TEXT                       --perfi("admin ou cliente")
 );
 
-CREATE TABLE available_services (   --serviços disponiveis
+CREATE TABLE tables (   
   id SERIAL PRIMARY KEY UNIQUE, 
-  name TEXT,
-  description TEXT,
-  availability JSONB              -- disponibilidade
+  num_table INTEGER,
+  capacity INTEGER
 );
 
 CREATE TABLE reservas (
   id SERIAL PRIMARY KEY UNIQUE, 
   users_id INTEGER REFERENCES users(id) ON DELETE CASCADE, 
-  services_id INTEGER REFERENCES available_services(id) ON DELETE CASCADE,  
-  data_reserva TIMESTAMP,
-  status_reserva BOOLEAN
-);
-
-CREATE TABLE availability (
-  id SERIAL PRIMARY KEY UNIQUE, -- Corrected: Use PRIMARY KEY instead of pk
-  services_id INTEGER REFERENCES available_services(id) ON DELETE CASCADE,  -- Foreign key constraint
-  data DATE,
-  horario_inicio TIME,
-  horario_fim TIME
+  table_id INTEGER REFERENCES tables(id) ON DELETE CASCADE,  
+  dt_reserva DATE,
+  hr_inicio TIME
 );

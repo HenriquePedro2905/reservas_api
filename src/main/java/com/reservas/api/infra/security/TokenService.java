@@ -3,11 +3,14 @@ package com.reservas.api.infra.security;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.reservas.api.model.Usuarios.Usuarios;
+import com.reservas.api.model.Usuarios.Users;
 
 @Service
 public class TokenService {
@@ -23,12 +26,15 @@ public class TokenService {
     private String secret;
 
 
-    public String generateToken(Usuarios users){
+    public String generateToken(Users users){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("reservas-api")
                     .withSubject(users.getLogin())
+                    .withClaim("authorization", users.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()))
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
                 return token;
